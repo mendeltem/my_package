@@ -50,13 +50,12 @@ from nipype import Node, Workflow
 from nipype.interfaces.fsl import BET
 
 import matplotlib.pyplot as plt
-import ants
 import time
 from optparse import OptionParser
 import inspect
 from typing import Optional, Tuple
 
-import itk
+
 
 parser = OptionParser()
 

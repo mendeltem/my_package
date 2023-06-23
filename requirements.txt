@@ -1,0 +1,4 @@
+nipype
+nibabel
+matplotlib
+ants
