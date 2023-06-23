@@ -38,7 +38,7 @@ def check_fsl():
 
 
 import os
-from my_package.config.config import Config
+#from my_package.config.config import Config
 
 import shutil
 import tempfile
@@ -66,9 +66,9 @@ logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(level
 # Check FSL
 fsl_installed = check_fsl()
 
-config = Config()
-dir(config)
-config.masterfile_file_path
+#config = Config()
+#dir(config)
+#config.masterfile_file_path
 
 
 def check_path_exists(file_path ):
@@ -129,8 +129,7 @@ class NiftiFileChecker():
         self.__affine              = None
         self._basename             = os.path.basename(path_image)
         self._filename             = os.path.basename(path_image).split(".")[0]
-        self.standard_space_flair  = config.standard_space_flair
-        
+
         self._dir                  = os.path.dirname(path_image)
         self._locked               = locked
         self._mni_mat              = mni_mat
@@ -478,7 +477,7 @@ class NiftiFileChecker():
         return NiftiFileChecker(output_file_path, locked=False)
     
     
-    def flirt(self, reference_image:str = "", force: bool=False):
+    def flirt(self, reference_image:str, force: bool=False):
         """
         Performs linear registration on the NIfTI file using the FSL FLIRT tool.
         
@@ -500,12 +499,6 @@ class NiftiFileChecker():
         MNI_xfm_path = os.path.join(self._dir, self._filename + "_to_registered.mat")
         mni_image_path = os.path.join(self._dir, self._filename + "_registered.nii.gz")
         
-    
-        if not reference_image:
-            reference_image = self.standard_space_flair
-            MNI_xfm_path = os.path.join(self._dir, self._filename + "_to_mni.mat")
-            mni_image_path = os.path.join(self._dir, self._filename + "_mni.nii.gz")
-            
     
         if not (os.path.isfile(MNI_xfm_path)) or not (os.path.isfile(mni_image_path)) or force:
             flirt_cmd = [
